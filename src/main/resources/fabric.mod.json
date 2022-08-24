@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "battletower",
+  "version": "${version}",
+
+  "name": "Battletower",
+  "description": "Battletower v9 with enchancments",
+  "authors": [
+    "kozibrodka"
+  ],
+  "contact": {
+    "homepage": "https://glass-launcher.net/",
+    "sources": "https://github.com/calmilamsy/BIN-fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/battletower/battleicon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "net.kozibrodka.battletower.events.GeneratorStarter",
+      "net.kozibrodka.battletower.events.GolemListener"
+    ],
+    "stationapi:event_bus_client": [
+
+    ],
+    "stationapi:event_bus_server": [
+
+    ],
+    "gcapi": [
+      "net.kozibrodka.battletower.events.GeneratorStarter"
+    ]
+  },
+  "mixins": [
+    "battletower.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}
