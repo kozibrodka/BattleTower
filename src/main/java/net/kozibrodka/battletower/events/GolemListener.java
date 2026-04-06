@@ -11,6 +11,7 @@ import net.modificationstation.stationapi.api.event.registry.MobHandlerRegistryE
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
+import net.modificationstation.stationapi.api.registry.Registry;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 import net.modificationstation.stationapi.api.util.Null;
 
@@ -36,6 +37,7 @@ public class GolemListener {
     @EventListener
     private static void registerMobHandlers(MobHandlerRegistryEvent event) {
         event.registry.register(Identifier.of(MOD_ID, "TowerGolem"), EntityGolem::new);
+//        Registry.register(event.registry, MOD_ID.id("TowerGolem") , EntityGolem::new);
     }
 
     @EventListener
