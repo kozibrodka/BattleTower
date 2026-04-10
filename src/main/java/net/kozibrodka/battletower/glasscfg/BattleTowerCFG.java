@@ -1,17 +1,33 @@
 package net.kozibrodka.battletower.glasscfg;
 
 
-import blue.endless.jankson.Comment;
-import net.glasslauncher.mods.api.gcapi.api.ConfigName;
-import net.glasslauncher.mods.api.gcapi.api.MaxLength;
+import net.glasslauncher.mods.gcapi3.api.ConfigEntry;
 
 public class BattleTowerCFG {
 
-    @ConfigName("Tower Rarity")
-    @Comment("1 - maximum rarity, 50 - minimum rarity")
-    @MaxLength(
-            value = 50
-    )
-    public Integer towerrarity = 12;
+
+
+    @ConfigEntry(name="Tower Rarity", minValue = 1, maxValue = 50, multiplayerSynced = true)
+    public Integer tower_rarity = 12;
+
+    @ConfigEntry(name="Min Tower Distance", minValue = 16, maxValue = 1000000, description = "?", multiplayerSynced = true)
+    public Double min_tower_distance = 64.0;
+
+    @ConfigEntry(name="Enable Tower Collapse", multiplayerSynced = true)
+    public Boolean tower_destroyer = true;
+
+    @ConfigEntry(name="50% chance of each Diamond Drop from Golem", multiplayerSynced = true)
+    public Boolean less_diamonds = false;
+
+    @ConfigEntry(name="Chest tower Loot Overhaul", description = "Disable to get old loot tables", multiplayerSynced = true)
+    public Boolean loot_rework = true;
+
+    @ConfigEntry(name="Number of ItemStacks per chest", minValue = 1, maxValue = 54, multiplayerSynced = true)
+    public Integer loot_rarity = 3;
+
+    @ConfigEntry(name="Enable Mo' Creatures Spawners integration", multiplayerSynced = true)
+    public Boolean mocr_monsters = true;
+
+
 
 }

@@ -15,12 +15,14 @@
 
   "license": "CC0-1.0",
   "icon": "assets/battletower/battleicon.png",
-
   "environment": "*",
+  "accessWidener": "battletower.accesswidener",
   "entrypoints": {
     "stationapi:event_bus": [
       "net.kozibrodka.battletower.events.GeneratorStarter",
-      "net.kozibrodka.battletower.events.GolemListener"
+      "net.kozibrodka.battletower.events.GolemListener",
+      "net.kozibrodka.battletower.events.DestroyerSystem",
+      "net.kozibrodka.battletower.events.TowerLoot"
     ],
     "stationapi:event_bus_client": [
 
@@ -28,7 +30,7 @@
     "stationapi:event_bus_server": [
 
     ],
-    "gcapi": [
+    "gcapi3": [
       "net.kozibrodka.battletower.events.GeneratorStarter"
     ]
   },
