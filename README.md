@@ -1,4 +1,4 @@
-# Fabric Example Mod with StationAPI and BIN Mappings for beta 1.7.3 server + client
+# Battle Towers Legacy Unofficial
 
 ## Setup
 
@@ -14,4 +14,4 @@ If you still get the issue, you may need to go into `File > Settings > Build, Ex
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This template is available under the CC-BY-4.0 license.s.

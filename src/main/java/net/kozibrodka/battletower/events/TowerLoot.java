@@ -1,6 +1,9 @@
 package net.kozibrodka.battletower.events;
 
+import net.danygames2014.elementalarrows.ElementalArrows;
 import net.fabricmc.loader.api.FabricLoader;
+import net.kozibrodka.mocreatures.events.mod_mocreatures;
+import net.kozibrodka.wolves.events.ItemListener;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.mine_diver.unsafeevents.listener.ListenerPriority;
 import net.minecraft.block.Block;
@@ -40,11 +43,38 @@ public class TowerLoot {
     @EventListener(priority = ListenerPriority.LOWEST)
     public void registerAchievements(AchievementRegisterEvent event) {
 
-        /// MODS //todo
+        /// MODS more to be added.
         if(FabricLoader.getInstance().isModLoaded("mocreatures") && GeneratorStarter.config.mod_loot.loot_mocreatures){
-
+            FLOOR_9.add(new int[] {mod_mocreatures.whip.id, 1, 1, 0});
+            FLOOR_8.add(new int[] {mod_mocreatures.horsesaddle.id, 1, 1, 0});
+            FLOOR_7.add(new int[] {mod_mocreatures.medallion.id, 1, 1, 0});
+            FLOOR_6.add(new int[] {mod_mocreatures.sheepbell.id, 1, 1, 0});
+            FLOOR_5.add(new int[] {mod_mocreatures.rope.id, 2, 1, 0});
+            FLOOR_4.add(new int[] {mod_mocreatures.petfood.id, 4, 1, 0});
+            FLOOR_3.add(new int[] {mod_mocreatures.sugarlump.id, 3, 1, 0});
+            FLOOR_2.add(new int[] {mod_mocreatures.woolball.id, 1, 1, 0});
         }
 
+        if(FabricLoader.getInstance().isModLoaded("elementalarrows") && GeneratorStarter.config.mod_loot.loot_elementalarrows){
+            FLOOR_8.add(new int[] {ElementalArrows.lightingArrow.id, 1, 1, 0});
+            FLOOR_7.add(new int[] {ElementalArrows.explosiveArrow.id, 2, 2, 0});
+            FLOOR_6.add(new int[] {ElementalArrows.fireArrow.id, 3, 2, 0});
+            FLOOR_5.add(new int[] {ElementalArrows.iceArrow.id, 3, 2, 0});
+            FLOOR_4.add(new int[] {ElementalArrows.torchArrow.id, 5, 1, 0});
+            FLOOR_3.add(new int[] {ElementalArrows.eggArrow.id, 2, 1, 0});
+        }
+
+        if(FabricLoader.getInstance().isModLoaded("wolves") && GeneratorStarter.config.mod_loot.loot_betterthanwolves){
+            FLOOR_9.add(new int[] {ItemListener.steel.id, 1, 1, 0});
+            FLOOR_8.add(new int[] {ItemListener.hempCloth.id, 1, 1, 0});
+            FLOOR_7.add(new int[] {ItemListener.ropeItem.id, 1, 1, 0});
+            FLOOR_6.add(new int[] {ItemListener.hemp.id, 1, 1, 0});
+            FLOOR_5.add(new int[] {ItemListener.hempFibers.id, 2, 1, 0});
+            FLOOR_4.add(new int[] {ItemListener.strap.id, 1, 1, 0});
+            FLOOR_3.add(new int[] {ItemListener.scouredLeather.id, 1, 1, 0});
+            FLOOR_2.add(new int[] {ItemListener.hempSeeds.id, 1, 1, 0});
+            FLOOR_1.add(new int[] {ItemListener.flour.id, 1, 1, 0});
+        }
 
 
         /// { Item.ID -> Random() -> +ILE -> META }
@@ -53,7 +83,10 @@ public class TowerLoot {
         /// TOP FLOOR
         FLOOR_TOP.add(new int[] {Item.CAKE.id, 1, 1, 0});
         FLOOR_TOP.add(new int[] {Item.GOLDEN_PICKAXE.id, 1, 1, 0});
+        FLOOR_TOP.add(new int[] {Item.GOLDEN_PICKAXE.id, 1, 1, 0});
         FLOOR_TOP.add(new int[] {Item.GOLDEN_AXE.id, 1, 1, 0});
+        FLOOR_TOP.add(new int[] {Item.GOLDEN_AXE.id, 1, 1, 0});
+        FLOOR_TOP.add(new int[] {Item.GOLDEN_SHOVEL.id, 1, 1, 0});
         FLOOR_TOP.add(new int[] {Item.GOLDEN_SHOVEL.id, 1, 1, 0});
         FLOOR_TOP.add(new int[] {Item.MAP.id, 1, 1, 0});
         FLOOR_TOP.add(new int[] {Item.CLOCK.id, 1, 1, 0});
