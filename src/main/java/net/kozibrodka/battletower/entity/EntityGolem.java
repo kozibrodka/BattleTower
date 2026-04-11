@@ -21,11 +21,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.modificationstation.stationapi.api.network.packet.PacketHelper;
 import net.modificationstation.stationapi.api.server.entity.MobSpawnDataProvider;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-import java.util.List;
 
 public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 //	private int dormant;
@@ -80,7 +78,6 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 		attackCounter = 0;
 	}
 
-	/// TODO client get texture??
 	@Override
 	@Environment(EnvType.CLIENT)
 	public String getTexture() {
@@ -93,11 +90,14 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 
 	@Override
     public void markDead() {
-		if(health <= 0) { //TODO its actually logic for CLIENT REGISTER LOL - make for ALL players... chyba juz??
-			if(world.isRemote && GeneratorStarter.config.tower_destroyer && towerTopCoord != null && world.getClosestPlayer(this, 24.0D) != null && !constructed) {
-				((Minecraft) FabricLoader.getInstance().getGameInstance()).inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
-				DestroyerSystem.registerTowerDestroyer(new TowerDestroyer(world, towerTopCoord, System.currentTimeMillis(), world.getClosestPlayer(this, 24.0D)));
-				constructed = true;
+		if(health <= 0) { //TODO its actually logic for CLIENT REGISTER LOL - make for ALL players... chyba juz?? test
+			if(world.isRemote) {
+				towerTopCoord = new Vec3i(dataTracker.getInt(17), dataTracker.getInt(18), dataTracker.getInt(19));;
+				if (GeneratorStarter.config.tower_destroyer && towerTopCoord.y != -1 && world.getClosestPlayer(this, 24.0D) != null && !constructed) {
+					((Minecraft) FabricLoader.getInstance().getGameInstance()).inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+					DestroyerSystem.registerTowerDestroyer(new TowerDestroyer(world, towerTopCoord, System.currentTimeMillis(), world.getClosestPlayer(this, 24.0D)));
+					constructed = true;
+				}
 			}
 			super.markDead();
 		}
@@ -140,14 +140,13 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 //				dropItem(Block.CLAY.id, 1);
 //			}
 			///
-			if(towerTopCoord != null && target != null && GeneratorStarter.config.tower_destroyer) {
+			towerTopCoord = new Vec3i(dataTracker.getInt(17), dataTracker.getInt(18), dataTracker.getInt(19));;
+			if(towerTopCoord.y != -1 && target != null && GeneratorStarter.config.tower_destroyer) {
 				if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
 					GolemListener.mc.inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
 				}else{
 					GolemListener.mcServ.sendMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
 				}
-//				((Minecraft) FabricLoader.getInstance().getGameInstance()).inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
-//				ModLoader.getMinecraftInstance().ingameGUI.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
 				DestroyerSystem.registerTowerDestroyer(new TowerDestroyer(world, towerTopCoord, System.currentTimeMillis(), target));
 			}
 		}
@@ -173,23 +172,22 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 			if(targetNearby != null && canSee(targetNearby)) {
 				setDormant(0);
 				if((int)y > 90) {
-					towerTopCoord = new Vec3i((int)x, (int)y, (int)z);
-					if(FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER){
-						coordsPacket(world, (int)x, (int)y, (int)z);
-					}
+//					towerTopCoord = new Vec3i((int)x, (int)y, (int)z);
+					dataTracker.set(17, (int)x);
+					dataTracker.set(18, (int)y);
+					dataTracker.set(19, (int)z);
 				}
 				world.broadcastEntityEvent(this, (byte)6);
 				world.playSound(x, y, z, "ambient.cave.cave", 0.7F, 1.0F);
 				world.playSound(this, "battletower:golemawaken", getSoundVolume() * 2.0F, ((random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F) * 1.8F);
-//				texture = "/assets/battletower/stationapi/textures/mob/golem.png";
 				rageCounter = 175;
 			}
 		} else if(target != null) {
-			if(towerTopCoord == null) {
-				towerTopCoord = new Vec3i((int)x, (int)y, (int)z);
-				if(FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER){
-					coordsPacket(world, (int)x, (int)y, (int)z);
-				}
+			if(dataTracker.getInt(18) == -1) {
+//				towerTopCoord = new Vec3i((int)x, (int)y, (int)z);
+				dataTracker.set(17, (int)x);
+				dataTracker.set(18, (int)y);
+				dataTracker.set(19, (int)z);
 			}
 
 			boolean var10 = target.getSquaredDistance(this) < 36.0D;
@@ -236,16 +234,16 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 
 	}
 
-	@Environment(EnvType.SERVER)
-	public void coordsPacket(World world, int x, int y, int z) {
-		List list2 = world.players;
-		if (list2.size() != 0) {
-			for (int k = 0; k < list2.size(); k++) {
-				ServerPlayerEntity player1 = (ServerPlayerEntity) list2.get(k);
-				PacketHelper.sendTo(player1, new CoordsPacket(x, y, z, this.id));
-			}
-		}
-	}
+//	@Environment(EnvType.SERVER)
+//	public void coordsPacket(World world, int x, int y, int z) {
+//		List list2 = world.players;
+//		if (list2.size() != 0) {
+//			for (int k = 0; k < list2.size(); k++) {
+//				ServerPlayerEntity player1 = (ServerPlayerEntity) list2.get(k);
+//				PacketHelper.sendTo(player1, new CoordsPacket(x, y, z, this.id));
+//			}
+//		}
+//	}
 
 //	public void clientLook(){
 //		if(getDormant() == 1) {
@@ -284,11 +282,11 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 					movementSpeed = 1.0F;
 				}
 			} else if(target == null) {
-				health = maxHealth; /// introduce max health, wczesniej 300
+				health = maxHealth;
 				rageCounter = 125;
 				explosionAttack = 0;
 			} else if((rageCounter <= -30 || onGround) && explosionAttack == 1) {
-				if(health <= 425) { /// todo health logic and values, chyba DONE
+				if(health <= 425) {
 					health += 25;
 				}
 
@@ -329,6 +327,9 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		dataTracker.startTracking(16, (byte)0); //DORMANT
+		dataTracker.startTracking(17, -1); //Found X
+		dataTracker.startTracking(18, -1); //Found Y
+		dataTracker.startTracking(19, -1); //Found Z
 	}
 
 	public void setDormant(int type)
@@ -347,27 +348,30 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 	@Override
     public void writeNbt(NbtCompound nbttagcompound) {
 		super.writeNbt(nbttagcompound);
-		nbttagcompound.putInt("isDormant", getDormant());
+		nbttagcompound.putByte("isDormant", (byte) getDormant());
 		nbttagcompound.putByte("hasexplosionAttacked", (byte)explosionAttack);
 		nbttagcompound.putByte("rageCounter", (byte)rageCounter);
 		nbttagcompound.putByte("Drops", (byte)drops);
 		nbttagcompound.putInt("MaxHealth", maxHealth);
+
+		nbttagcompound.putInt("CoordX", dataTracker.getInt(17));
+		nbttagcompound.putInt("CoordY", dataTracker.getInt(18));
+		nbttagcompound.putInt("CoordZ", dataTracker.getInt(19));
 	}
 
 	@Override
     public void readNbt(NbtCompound nbttagcompound) {
 		super.readNbt(nbttagcompound);
-		setDormant(nbttagcompound.getInt("isDormant"));
+		setDormant(nbttagcompound.getByte("isDormant") & 255); ///TEST BYTES
 		explosionAttack = nbttagcompound.getByte("hasexplosionAttacked") & 255;
 		rageCounter = nbttagcompound.getByte("rageCounter") & 255;
 		drops = nbttagcompound.getByte("Drops") & 255;
 		movementSpeed = golemMoveSpeed;
-//		if(dormant == 1) {
-//			texture = "/assets/battletower/stationapi/textures/mob/golemdormant.png";
-//		} else {
-//			texture = "/assets/battletower/stationapi/textures/mob/golem.png";
-//		}
 		maxHealth = nbttagcompound.getInt("MaxHealth");
+
+		dataTracker.set(17, nbttagcompound.getInt("CoordX"));
+		dataTracker.set(18, nbttagcompound.getInt("CoordY"));
+		dataTracker.set(19, nbttagcompound.getInt("CoordZ"));
 
 		attackDamage = 8;
 	}
@@ -402,7 +406,7 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 
 	@Override
     protected String getDeathSound() {
-		return "battletower:golemdeath";
+		return "battletower:golemdeath"; //todo??
 	}
 
 	@Override

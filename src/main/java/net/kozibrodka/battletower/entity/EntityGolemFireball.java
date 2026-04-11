@@ -95,10 +95,6 @@ public class EntityGolemFireball extends Entity implements EntitySpawnDataProvid
 	@Override
     public void tick() {
 		super.tick();
-//		if(world.isRemote){
-//			this.world.addParticle("smoke", this.x, this.y + 0.5D, this.z, 0.0D, 0.0D, 0.0D);
-//			return; //todo test fire???
-//		}
 		this.fireTicks = 10;
 		if(this.shake > 0) {
 			--this.shake;
@@ -110,7 +106,6 @@ public class EntityGolemFireball extends Entity implements EntitySpawnDataProvid
 				if(this.age >= 1200) {
 					this.markDead();
 				}
-
 				return;
 			}
 
@@ -238,7 +233,7 @@ public class EntityGolemFireball extends Entity implements EntitySpawnDataProvid
 	}
 
 	@Override
-    public boolean damage(Entity entity, int i) { //TODO ??? odbijanie kuli imo nie
+    public boolean damage(Entity entity, int i) { /// Odbijanie kuli zostawiam, bo może byc za ciężko.
 		this.scheduleVelocityUpdate();
 		if(entity != null) {
 			Vec3d vec3d = entity.getLookVector();

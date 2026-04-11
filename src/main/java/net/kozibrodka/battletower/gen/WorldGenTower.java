@@ -347,10 +347,12 @@ public class WorldGenTower extends Feature {
 
 	private boolean IsBuildableBlockID(int ID) {
 		return ID == Block.STONE.id || ID == Block.GRASS_BLOCK.id || ID == Block.SAND.id || ID == Block.SANDSTONE.id || ID == Block.GRAVEL.id || ID == Block.DIRT.id;
+		/// RARE issue - Wieża będzie mocno wkopana w ziemie. Musiało by być bardzo specyficzne miejsce i brak żadnej rudy węgla itd. chyba
 	}
 
 	private boolean IsBannedBlockID(int ID) {
-		return ID == Block.DANDELION.id || ID == Block.ROSE.id || ID == Block.BROWN_MUSHROOM.id || ID == Block.RED_MUSHROOM.id || ID == Block.CACTUS.id || ID == Block.PUMPKIN.id || ID == Block.FLOWING_LAVA.id || ID == Block.LAVA.id || ID == Block.FLOWING_WATER.id || ID == Block.WATER.id;
+		return ID == Block.DANDELION.id || ID == Block.ROSE.id || ID == Block.BROWN_MUSHROOM.id || ID == Block.RED_MUSHROOM.id || ID == Block.PUMPKIN.id || ID == Block.FLOWING_LAVA.id || ID == Block.LAVA.id || ID == Block.FLOWING_WATER.id || ID == Block.WATER.id;
+	/// minus kaktus || ID == Block.CACTUS.id
 	}
 
 	public static enum towerTypes {

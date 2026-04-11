@@ -40,6 +40,9 @@ public class LootTable {
             case 8:
                 int h = random.nextInt(TowerLoot.floor_8_size);
                 return new ItemStack(TowerLoot.FLOOR_8.get(h)[0], random.nextInt(TowerLoot.FLOOR_8.get(h)[1]) + TowerLoot.FLOOR_8.get(h)[2], TowerLoot.FLOOR_8.get(h)[3]);
+            case 9,10:
+                int i = random.nextInt(TowerLoot.floor_9_size);
+                return new ItemStack(TowerLoot.FLOOR_9.get(i)[0], random.nextInt(TowerLoot.FLOOR_9.get(i)[1]) + TowerLoot.FLOOR_9.get(i)[2], TowerLoot.FLOOR_9.get(i)[3]);
             default:
                 return null;
         }

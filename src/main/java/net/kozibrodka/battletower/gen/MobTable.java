@@ -11,39 +11,31 @@ public class MobTable {
 
     public static String getTowerMobType(Random random) {
         if (mocreatures && GeneratorStarter.config.mocr_monsters) {
-            switch (random.nextInt(4)) {
-                case 0:
+            switch (random.nextInt(8)) {
+                case 0, 7:
                     return "Skeleton";
                 case 1:
                     return "Zombie";
                 case 2:
                     return "Spider";
                 case 3:
-                    return "mocreatures:XXX"; //todo
+                    return "mocreatures:FlameWraith";
                 case 4:
-                    return "mocreatures:XXX";
+                    return "mocreatures:Wraith";
                 case 5:
-                    return "mocreatures:XXX";
+                    return "mocreatures:Mummy";
                 case 6:
-                    return "mocreatures:XXX";
-                case 7:
-                    return "mocreatures:XXX";
+                    return "mocreatures:Scorpion";
                 default:
                     return "";
             }
         } else {
-            switch (random.nextInt(4)) {
-                case 0:
-                    return "Skeleton";
-                case 1:
-                    return "Zombie";
-                case 2:
-                    return "Zombie";
-                case 3:
-                    return "Spider";
-                default:
-                    return "";
-            }
+            return switch (random.nextInt(4)) {
+                case 0 -> "Skeleton";
+                case 1, 2 -> "Zombie";
+                case 3 -> "Spider";
+                default -> "";
+            };
         }
     }
 }

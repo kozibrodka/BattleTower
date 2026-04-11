@@ -1,11 +1,10 @@
 package net.kozibrodka.battletower.glasscfg;
 
 
+import net.glasslauncher.mods.gcapi3.api.ConfigCategory;
 import net.glasslauncher.mods.gcapi3.api.ConfigEntry;
 
 public class BattleTowerCFG {
-
-
 
     @ConfigEntry(name="Tower Rarity", minValue = 1, maxValue = 50, multiplayerSynced = true)
     public Integer tower_rarity = 12;
@@ -27,6 +26,9 @@ public class BattleTowerCFG {
 
     @ConfigEntry(name="Enable Mo' Creatures Spawners integration", multiplayerSynced = true)
     public Boolean mocr_monsters = true;
+
+    @ConfigCategory(name="§6Chest Loot Mods integration" , multiplayerSynced = true)
+    public ModsLootCFG mod_loot = new ModsLootCFG();
 
 
 

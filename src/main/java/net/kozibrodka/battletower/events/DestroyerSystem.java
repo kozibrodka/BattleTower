@@ -36,8 +36,6 @@ public class DestroyerSystem {
 
     @EventListener
     public void tickGame(GameTickEvent.End event){
-
-
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
             if(GolemListener.mc != null && GolemListener.mc.player != null && GolemListener.mc.world != null) {
                 if(System.currentTimeMillis() > GolemListener.time + 1000L) {

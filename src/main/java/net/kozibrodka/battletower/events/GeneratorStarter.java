@@ -64,9 +64,9 @@ public class GeneratorStarter {
     @EventListener
     public void populate(WorldGenEvent.ChunkDecoration event) {
 
-        if (event.world.dimension.isNether) {
+        if (event.world.dimension.id != 0) {
             return;
-            //TODO dimmensions....
+            /// Tylko Overworld narazie...
         }
 
         if(!isWorking) {
