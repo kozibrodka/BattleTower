@@ -4,6 +4,6 @@ import net.glasslauncher.mods.gcapi3.api.ConfigEntry;
 
 public class ModsLootCFG {
 
-    @ConfigEntry(name="Mo' Creatures")
-    public Boolean loot_mocreatures = true;
+    @ConfigEntry(name="null")
+    public Boolean loot_mocreatures = false;
 }

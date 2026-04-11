@@ -7,15 +7,12 @@ import net.kozibrodka.battletower.events.DestroyerSystem;
 import net.kozibrodka.battletower.events.GeneratorStarter;
 import net.kozibrodka.battletower.events.GolemListener;
 import net.kozibrodka.battletower.gen.TowerDestroyer;
-import net.kozibrodka.battletower.network.CoordsPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -90,7 +87,7 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 
 	@Override
     public void markDead() {
-		if(health <= 0) { //TODO its actually logic for CLIENT REGISTER LOL - make for ALL players... chyba juz?? test
+		if(health <= 0) { /// Should work for all player on world.
 			if(world.isRemote) {
 				towerTopCoord = new Vec3i(dataTracker.getInt(17), dataTracker.getInt(18), dataTracker.getInt(19));;
 				if (GeneratorStarter.config.tower_destroyer && towerTopCoord.y != -1 && world.getClosestPlayer(this, 24.0D) != null && !constructed) {
@@ -406,7 +403,7 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 
 	@Override
     protected String getDeathSound() {
-		return "battletower:golemdeath"; //todo??
+		return "battletower:golemdeath";
 	}
 
 	@Override

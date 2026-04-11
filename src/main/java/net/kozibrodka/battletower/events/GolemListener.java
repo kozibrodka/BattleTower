@@ -41,7 +41,7 @@ public class GolemListener {
     public static Item przedmiot2;
     @EventListener
     private void registerItems(ItemRegistryEvent event) {
-        przedmiot2 = new Siekierka(Identifier.of(MOD_ID, "siekierka")).setTranslationKey(MOD_ID, "siekierka");
+//        przedmiot2 = new Siekierka(Identifier.of(MOD_ID, "siekierka")).setTranslationKey(MOD_ID, "siekierka");
 //        horsesaddle = new HorseSaddle(Identifier.of(MOD_ID, "horsesaddle")).setTranslationKey(MOD_ID, "horsesaddle");
     }
     //////////////ADD
@@ -89,8 +89,4 @@ public class GolemListener {
         event.renderers.put(EntityGolemFireball.class, new RenderGolemFireball());
     }
 
-    @EventListener
-    public void registerPacket(PacketRegisterEvent event) {
-        Registry.register(PacketTypeRegistry.INSTANCE, MOD_ID.id("coords"), CoordsPacket.TYPE);
-    }
 }

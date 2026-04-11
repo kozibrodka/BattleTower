@@ -25,7 +25,7 @@ public class BattleTowerCFG {
     public Integer loot_rarity = 3;
 
     @ConfigEntry(name="Enable Mo' Creatures Spawners integration", multiplayerSynced = true)
-    public Boolean mocr_monsters = true;
+    public Boolean mocr_monsters = false;
 
     @ConfigCategory(name="§6Chest Loot Mods integration" , multiplayerSynced = true)
     public ModsLootCFG mod_loot = new ModsLootCFG();
