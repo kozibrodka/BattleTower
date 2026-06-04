@@ -16,7 +16,7 @@ import net.minecraft.client.render.entity.FireballEntityRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.modificationstation.stationapi.api.client.event.render.entity.EntityRendererRegisterEvent;
-import net.modificationstation.stationapi.api.event.entity.EntityRegister;
+import net.modificationstation.stationapi.api.event.entity.EntityRegisterEvent;
 import net.modificationstation.stationapi.api.event.network.packet.PacketRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.EntityHandlerRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
@@ -58,10 +58,10 @@ public class GolemListener {
     public static MinecraftServer mcServ;
 
     @EventListener
-    private static void registerEntities(EntityRegister event) {
-        event.register(EntityGolem_old.class, String.valueOf(Identifier.of(MOD_ID, "TowerGolem_old")));
-        event.register(EntityGolem.class, String.valueOf(Identifier.of(MOD_ID, "TowerGolem")));
-        event.register(EntityGolemFireball.class, String.valueOf(Identifier.of(MOD_ID, "GolemFireball")));
+    private static void registerEntities(EntityRegisterEvent event) {
+        event.register(Identifier.of(MOD_ID, "TowerGolem_old"), EntityGolem_old.class);
+        event.register(Identifier.of(MOD_ID, "TowerGolem"), EntityGolem.class);
+        event.register(Identifier.of(MOD_ID, "GolemFireball"), EntityGolemFireball.class);
 
         time = System.currentTimeMillis();
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
@@ -73,13 +73,13 @@ public class GolemListener {
 
     @EventListener
     private static void registerMobHandlers(MobHandlerRegistryEvent event) {
-        Registry.register(event.registry, MOD_ID.id("TowerGolem_old") , EntityGolem_old::new);
-        Registry.register(event.registry, MOD_ID.id("TowerGolem") , EntityGolem::new);
+        event.register(MOD_ID.id("TowerGolem_old"), EntityGolem_old::new);
+        event.register(MOD_ID.id("TowerGolem"), EntityGolem::new);
     }
 
     @EventListener
     private static void registerEntityHandlers(EntityHandlerRegistryEvent event) {
-        Registry.register(event.registry, MOD_ID.id("GolemFireball") , EntityGolemFireball::new);
+        event.register(MOD_ID.id("GolemFireball"), EntityGolemFireball::new);
     }
 
     @EventListener

@@ -1,0 +1,1 @@
+- Updated to StationAPI Alpha-6.2

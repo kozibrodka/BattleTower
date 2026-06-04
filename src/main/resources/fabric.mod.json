@@ -3,13 +3,13 @@
   "id": "battletower",
   "version": "${version}",
 
-  "name": "Battletower",
-  "description": "Battletower v9 with enchancments",
+  "name": "Battle Towers",
+  "description": "Battle Towers v9 with enchancments",
   "authors": [
     "kozibrodka"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/battletower-stationapi",
+    "homepage": "https://modrinth.com/mod/battle-towers-stationapi",
     "sources": "https://github.com/calmilamsy/BIN-fabric-example-mod"
   },
 
