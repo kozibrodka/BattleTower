@@ -59,12 +59,12 @@ public class TowerDestroyer {
 			count++;
 		}
 
-		System.out.println(count);
+//		System.out.println(count);
 		if(count > 2){
-			System.out.println("STOP");
+//			System.out.println("STOP");
 			return true;
 		}else{
-			System.out.println("CONTINUE");
+//			System.out.println("CONTINUE");
 			return false;
 		}
 

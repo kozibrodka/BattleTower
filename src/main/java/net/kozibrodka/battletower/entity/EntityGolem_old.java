@@ -21,6 +21,7 @@ import net.modificationstation.stationapi.api.util.Identifier;
 public class EntityGolem_old extends MonsterEntity implements MobSpawnDataProvider
 {
 
+    /// OG Golem od Kodashi, nie ma zrobionego multiplayer.
     public EntityGolem_old(World world, int i)
     {
         super(world);

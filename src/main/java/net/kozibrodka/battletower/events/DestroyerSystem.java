@@ -6,6 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.kozibrodka.battletower.gen.TowerDestroyer;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.modificationstation.stationapi.api.event.tick.GameTickEvent;
 
 import java.util.ArrayList;
@@ -36,8 +37,30 @@ public class DestroyerSystem {
 
     @EventListener
     public void tickGame(GameTickEvent.End event){
+//        if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+//            if(GolemListener.mc != null && GolemListener.mc.player != null && GolemListener.mc.world != null) {
+//                if(System.currentTimeMillis() > GolemListener.time + 1000L) {
+//                    for(int i = 0; i < TowerDestroyers.size(); ++i) {
+//                        TowerDestroyer temp = (TowerDestroyer)TowerDestroyers.get(i);
+//                        temp.Update();
+//                    }
+//                }
+//            }
+//        }else{
+//            if(GolemListener.mcServ != null) {
+//                if(System.currentTimeMillis() > GolemListener.time + 1000L) {
+//                    for(int i = 0; i < TowerDestroyers.size(); ++i) {
+//                        TowerDestroyer temp = (TowerDestroyer)TowerDestroyers.get(i);
+//                        temp.Update();
+//                    }
+//                }
+//            }
+//        }
+
+        /// DEBUG
+
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
-            if(GolemListener.mc != null && GolemListener.mc.player != null && GolemListener.mc.world != null) {
+            if(mc != null && mc.player != null && mc.world != null) {
                 if(System.currentTimeMillis() > GolemListener.time + 1000L) {
                     for(int i = 0; i < TowerDestroyers.size(); ++i) {
                         TowerDestroyer temp = (TowerDestroyer)TowerDestroyers.get(i);
@@ -46,7 +69,7 @@ public class DestroyerSystem {
                 }
             }
         }else{
-            if(GolemListener.mcServ != null) {
+            if(mcServ != null) {
                 if(System.currentTimeMillis() > GolemListener.time + 1000L) {
                     for(int i = 0; i < TowerDestroyers.size(); ++i) {
                         TowerDestroyer temp = (TowerDestroyer)TowerDestroyers.get(i);
@@ -56,6 +79,15 @@ public class DestroyerSystem {
             }
         }
     }
+
+    @Environment(EnvType.CLIENT)
+    public static Minecraft mc;
+//    public static Minecraft mc = (Minecraft) FabricLoader.getInstance().getGameInstance();
+
+
+    @Environment(EnvType.SERVER)
+    public static MinecraftServer mcServ;
+//    public static MinecraftServer mcServ = (MinecraftServer) FabricLoader.getInstance().getGameInstance();
 
     public static void registerTowerDestroyer(TowerDestroyer td) {
         TowerDestroyers.add(td);

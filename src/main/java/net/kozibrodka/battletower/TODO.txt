@@ -1,0 +1,6 @@
+TODO
+
+- Dla dopieszczenia ewentualnie gdy gracz wchodzi na server puszcza packeta aby się spytać czy są jakieś aktywne TowerDestroyersy i sobie lokalnie dodać.
+- Do póki nikt nie reportuje, i ludzie z Mango Srają na moje BT to nie ruszam.
+
+- Ewentualnie dodać więcej itemów, wiecej modów.

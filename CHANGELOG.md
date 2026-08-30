@@ -1,1 +1,1 @@
-- Updated to StationAPI Alpha-6.2
+- Fixed Crash on Tower Collapse caused by undisclosed mod/modpack configuration

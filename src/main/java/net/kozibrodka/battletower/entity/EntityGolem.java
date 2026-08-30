@@ -3,9 +3,7 @@ package net.kozibrodka.battletower.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.kozibrodka.battletower.events.DestroyerSystem;
-import net.kozibrodka.battletower.events.GeneratorStarter;
-import net.kozibrodka.battletower.events.GolemListener;
+import net.kozibrodka.battletower.events.*;
 import net.kozibrodka.battletower.gen.TowerDestroyer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -140,9 +138,17 @@ public class EntityGolem extends MonsterEntity implements MobSpawnDataProvider {
 			towerTopCoord = new Vec3i(dataTracker.getInt(17), dataTracker.getInt(18), dataTracker.getInt(19));;
 			if(towerTopCoord.y != -1 && target != null && GeneratorStarter.config.tower_destroyer) {
 				if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
-					GolemListener.mc.inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+//					if(GolemListener.mc != null) { /// czy to potrzebne? kaosveren cos dal //TODO nie wiadomo czemu w modpacku crashuje?
+//						GolemListener.mc.inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+//					}
+					GolemHelperCL.mc.inGameHud.addChatMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+					DestroyerSystem.mc = GolemHelperCL.mc;
 				}else{
-					GolemListener.mcServ.sendMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+//					if(GolemListener.mcServ != null) {
+//						GolemListener.mcServ.sendMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+					GolemHelperSV.mcServ.sendMessage("The Tower Guardian has fallen! Without it's energy, the tower will collapse...");
+					DestroyerSystem.mcServ = GolemHelperSV.mcServ;
+//					}
 				}
 				DestroyerSystem.registerTowerDestroyer(new TowerDestroyer(world, towerTopCoord, System.currentTimeMillis(), target));
 			}
